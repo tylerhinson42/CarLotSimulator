@@ -1,33 +1,80 @@
 ﻿using System;
+using System.Collections.Generic;
+using CarLotSimulator;
 
-namespace CarLotSimulator
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        var carCollection = new CarLot();
+        var carList = new List<Car>();
+
+
+        Car mustang = new Car() { Year = 2004, Make = "Ford", Model = "Mustang" };
+        mustang.MakeEngineNoise("VROOM");
+        mustang.MakeHonkNoise("Beep");
+
+        Car Cherokee = new Car();
+        Cherokee.Year = 1974;
+        Cherokee.Make = "Jeep";
+        Cherokee.Model = "Cherokee";
+        Cherokee.MakeEngineNoise("Sputter");
+        Cherokee.MakeHonkNoise("Meep");
+
+
+        var focus = new Car();
+        focus.Year = 2013;
+        focus.Model = "Focus";
+        focus.Make = "Ford";
+        focus.IsDriveable = true;
+        focus.MakeEngineNoise("vroooom vroooom");
+        focus.MakeHonkNoise("beeep beeeeep");
+
+
+        //object initializer syntax - using scope with Properties inside
+        var fusion = new Car();
+
         {
-            //TODO
+            bool IsDriveable = false;
+            string Make = "Ford";
+            string Model = "Fusion";
 
-            //Create a seperate class file called Car
-            //Car shall have the following properties: Year, Make, Model, EngineNoise, HonkNoise, IsDriveable
-            //Car shall have the following methods: MakeEngineNoise(), MakeHonkNoise()
-            //The methods should take one string parameter: the respective noise property
+            Model = "Fusion";
+            Make = "Ford";
+            IsDriveable = false;
+        };
 
 
-            //Now that the Car class is created we can instanciate 3 new cars
-            //Set the properties for each of the cars
-            //Call each of the methods for each car
+        fusion.MakeEngineNoise("silent");
+        fusion.MakeHonkNoise("shrill sound");
 
-            //*************BONUS*************//
+        var explorer = new Car(1999, "Ford", "Explorer", "buzz", "beeeeeeep", true);
 
-            // Set the properties utilizing the 3 different ways we learned about, one way for each car
+        explorer.MakeEngineNoise(explorer.EngineNoise);
+        explorer.MakeHonkNoise(focus.HonkNoise);
 
-            //*************BONUS X 2*************//
 
-            //Create a CarLot class
-            //It should have at least one property: a List of cars
-            //Instanciate the a Carlot at the beginning of the program and as you create a car add the car to the list.
-            //At the end iterate through the list printing each of car's Year, Make, and Model to the console
+        carCollection.Lot.Add(focus);
+        carCollection.Lot.Add(fusion);
+        carCollection.Lot.Add(explorer);
+
+        carCollection.Lot = carList;
+
+        foreach (var car in carCollection.Lot)
+        {
+            Console.WriteLine(
+                $"Make: {car.Make}, " +
+                $"Model: {car.Model}, " +
+                $"Year {car.Year}");
         }
+
+        Car Corolla = new Car()
+        {
+            Year = 2008,
+            Make = "Toyota",
+            Model = "Corolla"
+        };
+        Corolla.MakeEngineNoise("whir");
+        Corolla.MakeHonkNoise("Clown horn sound");
     }
 }
